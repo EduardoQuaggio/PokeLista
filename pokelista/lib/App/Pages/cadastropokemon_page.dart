@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:pokelista/Pages/dashboard_page.dart';
-import 'package:pokelista/Pages/pokelista_page.dart';
+import 'package:pokelista/App/Pages/pokelista_page.dart';
 
 class CadastroPokemonsPage extends StatefulWidget {
   const CadastroPokemonsPage({Key? key}) : super(key: key);
@@ -26,7 +25,7 @@ class _CadastroPokemonsPageState extends State<CadastroPokemonsPage> {
           ),
           body: Stack(
             children: [
-              Center(
+              const Center(
                 child: Text('Cadastro'),
               ),
               Column(

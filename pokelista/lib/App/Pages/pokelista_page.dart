@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:pokelista/Pages/dashboard_page.dart';
+import 'package:get/get.dart';
+
+import 'package:pokelista/App/controllers/pokelista_controllers.dart';
 
 import 'cadastropokemon_page.dart';
 
@@ -14,6 +14,14 @@ class PokelistaPage extends StatefulWidget {
 }
 
 class _PokelistaPageState extends State<PokelistaPage> {
+  late PokelistaController controller;
+
+  @override
+  void initState() {
+    controller = Get.put(PokelistaController());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

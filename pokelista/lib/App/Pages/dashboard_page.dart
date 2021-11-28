@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pokelista/Pages/cadastropokemon_page.dart';
-import 'package:pokelista/Pages/pokelista_page.dart';
+import 'package:pokelista/App/Pages/pokelista_page.dart';
+
+import 'cadastropokemon_page.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({Key? key}) : super(key: key);

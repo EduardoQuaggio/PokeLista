@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:pokelista/Pages/dashboard_page.dart';
+
+import 'App/Pages/dashboard_page.dart';
 
 void main() {
   runApp(const MyApp());
