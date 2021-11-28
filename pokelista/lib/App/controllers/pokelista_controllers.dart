@@ -10,8 +10,8 @@ class PokelistaController extends GetxController {
   }
 
   Future<void> carregarListaPokemon() async {
-    Pokemons = [PokemonModel()];
-    for (var i = 1; i < 15; i++) {
+    Pokemons = [];
+    for (var i = 1; i < 16; i++) {
       var pokemon = await PokemonApi().getInfoPokemons('${i}');
       Pokemons.add(pokemon!);
     }

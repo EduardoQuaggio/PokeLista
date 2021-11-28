@@ -10,7 +10,7 @@ class PokemonModel {
   String? name;
   String? url;
 
-  // SpritePokemon? spritePokemon;
+  SpritePokemon? spritePokemon;
 
   List<Habilidades>? habilidades;
   List<TipoPokemon>? tipo;
@@ -19,7 +19,7 @@ class PokemonModel {
     this.id,
     this.name,
     this.url,
-    // this.spritePokemon,
+    this.spritePokemon,
     this.habilidades,
     this.tipo,
   });
@@ -29,7 +29,7 @@ class PokemonModel {
       'id': id,
       'name': name,
       'url': url,
-      // 'sprites': spritePokemon,
+      'sprites': spritePokemon,
       'abilities': habilidades,
       'types': tipo,
     };
@@ -40,8 +40,8 @@ class PokemonModel {
       id: json['id'],
       name: json['name'],
       url: json['url'],
-      // spritePokemon:
-      //     json["sprites"].map((conteudo) => SpritePokemon.fromMap(conteudo)),
+      spritePokemon:
+          SpritePokemon.fromMap(json['sprites'] as Map<String, dynamic>),
       habilidades: (json["abilities"] as List)
           .map((conteudo) => Habilidades.fromMap(conteudo))
           .toList(),
