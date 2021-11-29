@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:pokelista/Base/models/categoria_modal.dart';
+import 'package:pokelista/Base/models/descricao_model.dart';
 import 'package:pokelista/Base/models/spritepokemon_model.dart';
 import 'package:pokelista/Base/models/tipo_model.dart';
 
@@ -9,11 +11,14 @@ class PokemonModel {
   int? id;
   String? name;
   String? url;
+  bool favorito = false;
 
   SpritePokemon? spritePokemon;
 
   List<Habilidades>? habilidades;
   List<TipoPokemon>? tipo;
+  List<Descricao>? Descricoes;
+  List<Categoria>? Categorias;
 
   PokemonModel({
     this.id,
@@ -22,6 +27,8 @@ class PokemonModel {
     this.spritePokemon,
     this.habilidades,
     this.tipo,
+    this.Descricoes,
+    this.Categorias,
   });
 
   Map<String, dynamic> toMap() {
@@ -32,6 +39,8 @@ class PokemonModel {
       'sprites': spritePokemon,
       'abilities': habilidades,
       'types': tipo,
+      // 'flavor_text_entries': Descricoes,
+      'egg_groups': Categorias,
     };
   }
 
@@ -48,6 +57,16 @@ class PokemonModel {
       tipo: (json["types"] as List)
           .map((conteudo) => TipoPokemon.fromMap(conteudo))
           .toList(),
+      // Descricoes: json["flavor_text_entries"] != null
+      //     ? (json["flavor_text_entries"] as List)
+      //         .map((conteudo) => Descricao.fromMap(conteudo))
+      //         .toList()
+      //     : null,
+      Categorias: json["egg_groups"] != null
+          ? (json["egg_groups"] as List)
+              .map((conteudo) => Categoria.fromMap(conteudo))
+              .toList()
+          : null,
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:pokelista/Base/models/categoria_modal.dart';
+import 'package:pokelista/Base/models/descricao_model.dart';
 import 'package:pokelista/Base/models/pokemon%20_%20model.dart';
 
 class PokemonApi extends GetConnect {
@@ -11,6 +13,22 @@ class PokemonApi extends GetConnect {
       final result = resp.body;
 
       PokemonModel pokemon = PokemonModel.fromMap(result);
+      return pokemon;
+    } catch (e) {
+      print(e);
+      return null;
+      //throw new Exception(e);
+    }
+  }
+
+  Future<PokemonModel?> getInfoExtraPokemons(
+      PokemonModel pokemon, String int) async {
+    try {
+      httpClient.timeout = const Duration(seconds: 30);
+      final url = 'https://pokeapi.co/api/v2/pokemon-species/${int}';
+      Response resp = await httpClient.get(url);
+      pokemon.Categorias =
+          (resp.body as List).map((x) => Categoria.fromMap(x)).toList();
       return pokemon;
     } catch (e) {
       print(e);
