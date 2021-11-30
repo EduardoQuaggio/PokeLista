@@ -2,11 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pokelista/App/Pages/pokelista_page.dart';
+import 'package:pokelista/App/controllers/pokelista_controllers.dart';
 
 import 'cadastropokemon_page.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
+
+  @override
+  State<DashboardPage> createState() => _DashboardPageState();
+}
+
+class _DashboardPageState extends State<DashboardPage> {
+  late PokelistaController controller;
+
+  @override
+  void initState() {
+    controller = Get.put(PokelistaController());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +45,9 @@ class DashboardPage extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.to(const PokelistaPage());
+                          Get.to(PokelistaPage(
+                            controller: controller,
+                          ));
                         },
                         child: Card(
                           child: Padding(
@@ -48,7 +64,7 @@ class DashboardPage extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Get.to(const CadastroPokemonsPage());
+                          Get.to(CadastroPokemonsPage(controller: controller));
                         },
                         child: Card(
                           child: Padding(
@@ -95,7 +111,9 @@ class DashboardPage extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               Get.back();
-                              Get.to(const PokelistaPage());
+                              Get.to(PokelistaPage(
+                                controller: controller,
+                              ));
                             },
                             child: Column(
                               children: const [
@@ -113,7 +131,9 @@ class DashboardPage extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               Get.back();
-                              Get.to(const CadastroPokemonsPage());
+                              Get.to(CadastroPokemonsPage(
+                                controller: controller,
+                              ));
                             },
                             child: Column(
                               children: const [
