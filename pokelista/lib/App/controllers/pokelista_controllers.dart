@@ -112,6 +112,10 @@ class PokelistaController extends GetxController {
         tipoPokemonSelecionado = TipoPokemon().obs;
         categoriaPokemonSelecionado = Categoria().obs;
         habilidadePokemonSelecionado = Habilidades().obs;
+        arquivoCarregado.value = false;
+        inputNomePokemon.text = '';
+        inputDescricao.text = '';
+
         isLoading.value = true;
         tiposPokemon = await PokemonApi().getTiposPokemons();
         categoriasPokemon = await PokemonApi().getCategoriaPokemons();
@@ -172,15 +176,16 @@ class PokelistaController extends GetxController {
     pokemonCriado!.habilidades = [];
     pokemonCriado!.tipo = [];
     pokemonCriado!.Descricoes = [];
+    Descricao? descricao = Descricao();
 
     pokemonCriado!.Categorias!.add(categoriaPokemonSelecionado!.value);
     pokemonCriado!.habilidades!.add(habilidadePokemonSelecionado!.value);
     pokemonCriado!.tipo!.add(tipoPokemonSelecionado!.value);
     pokemonCriado!.name = inputNomePokemon.value.text;
-    Descricao? descricao = Descricao();
-    descricao!.descricao = inputNomePokemon.value.text;
+    descricao.descricao = inputNomePokemon.value.text;
     pokemonCriado!.Descricoes!.add(descricao);
     pokemonCriado!.adicionado = true;
+
     pokemons!.add(pokemonCriado!);
     auxListaPokemon!.add(pokemonCriado!);
   }

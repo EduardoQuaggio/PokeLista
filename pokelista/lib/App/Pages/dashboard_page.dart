@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pokelista/App/Pages/pokelista_page.dart';
 import 'package:pokelista/App/controllers/pokelista_controllers.dart';
@@ -24,6 +25,8 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Material(
         child: Scaffold(
@@ -35,6 +38,16 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           body: Stack(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    'assets/images/pokémon_logo.svg',
+                    allowDrawingOutsideViewBox: true,
+                  ),
+                ],
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,15 +62,28 @@ class _DashboardPageState extends State<DashboardPage> {
                             controller: controller,
                           ));
                         },
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text('Lista de Pokemons'),
-                                Text('Ver Lista'),
-                              ],
+                        child: SizedBox(
+                          width: width * 0.45,
+                          height: width * 0.35,
+                          child: Card(
+                            color: Colors.amber,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text('Lista de Pokemons'),
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 8.0),
+                                    child: Text(
+                                      'Ver Lista',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.orange),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -66,15 +92,28 @@ class _DashboardPageState extends State<DashboardPage> {
                         onTap: () {
                           Get.to(CadastroPokemonsPage(controller: controller));
                         },
-                        child: Card(
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text('Sempre quis ter seu pokemon ?'),
-                                Text('Cadastre seu pokemon aqui'),
-                              ],
+                        child: SizedBox(
+                          width: width * 0.45,
+                          height: width * 0.35,
+                          child: Card(
+                            color: Colors.amber,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Text('Sempre quis ter seu pokemon ?'),
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 8.0),
+                                    child: Text(
+                                      'Cadastre seu pokemon aqui',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.orange),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

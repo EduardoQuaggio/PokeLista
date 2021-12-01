@@ -53,153 +53,322 @@ class _PokelistaPageState extends State<PokelistaPage> {
                     )),
                   )
                 : widget.controller.listaFavoritosVisivel == false
-                    ? ListView.builder(
-                        itemCount: widget.controller.pokemons!.length,
-                        itemBuilder: (context, index) {
-                          return Card(
-                              child: GestureDetector(
-                            onTap: () {
-                              // controller.carregarInformacoesExtras(
-                              //     controller.pokemons![index],
-                              //     controller.pokemons![index].id!);
-                              // controller.isLoadingModal == true
-                              //     ?AlertDialog(
-                              //     content: SingleChildScrollView(
-                              //         child: Column(
-                              //       children: const [
-                              //         CircularProgressIndicator(),
-                              //         Text('Loading..'),
-                              //       ],
-                              //     )),
-                              //   )
-                              // :
-                              showModalBottomSheet<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Container(
-                                    height: 200,
-                                    color: Colors.white,
-                                    child: Center(
-                                      child: Column(
-                                        children: <Widget>[
-                                          Row(
-                                            children: [
-                                              !widget
-                                                      .controller
-                                                      .pokemons![index]
-                                                      .adicionado
-                                                  ? Image.network(widget
-                                                      .controller
-                                                      .pokemons![index]
-                                                      .spritePokemon!
-                                                      .frontdefault!)
-                                                  : SizedBox(
-                                                      height: width * 0.45,
-                                                      width: width * 0.35,
-                                                      child: Image.file(widget
-                                                          .controller
-                                                          .pokemonCriado!
-                                                          .FotoPokemon!),
-                                                    ),
-                                              Column(
+                    ? Padding(
+                        padding: const EdgeInsets.only(bottom: 50.0),
+                        child: ListView.builder(
+                            itemCount: widget.controller.pokemons!.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                  child: GestureDetector(
+                                onTap: () {
+                                  // controller.carregarInformacoesExtras(
+                                  //     controller.pokemons![index],
+                                  //     controller.pokemons![index].id!);
+                                  // controller.isLoadingModal == true
+                                  //     ?AlertDialog(
+                                  //     content: SingleChildScrollView(
+                                  //         child: Column(
+                                  //       children: const [
+                                  //         CircularProgressIndicator(),
+                                  //         Text('Loading..'),
+                                  //       ],
+                                  //     )),
+                                  //   )
+                                  // :
+                                  showModalBottomSheet<void>(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height: 300,
+                                        color: Colors.white,
+                                        child: Center(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
-                                                  Text(widget.controller
-                                                      .pokemons![index].name!),
+                                                  Row(
+                                                    children: [
+                                                      !widget
+                                                              .controller
+                                                              .pokemons![index]
+                                                              .adicionado
+                                                          ? Image.network(widget
+                                                              .controller
+                                                              .pokemons![index]
+                                                              .spritePokemon!
+                                                              .frontdefault!)
+                                                          : SizedBox(
+                                                              height:
+                                                                  width * 0.45,
+                                                              width:
+                                                                  width * 0.35,
+                                                              child: Image.file(widget
+                                                                  .controller
+                                                                  .pokemonCriado!
+                                                                  .FotoPokemon!),
+                                                            ),
+                                                      widget
+                                                              .controller
+                                                              .pokemons![index]
+                                                              .adicionado
+                                                          ? Column(
+                                                              children: [
+                                                                Text(widget
+                                                                    .controller
+                                                                    .pokemons![
+                                                                        index]
+                                                                    .name!),
+                                                                Text(widget
+                                                                    .controller
+                                                                    .pokemons![
+                                                                        index]
+                                                                    .tipo![0]
+                                                                    .name!),
+                                                                Text(widget
+                                                                    .controller
+                                                                    .pokemons![
+                                                                        index]
+                                                                    .Categorias![
+                                                                        0]
+                                                                    .nomeCategoria!),
+                                                                Text(widget
+                                                                    .controller
+                                                                    .pokemons![
+                                                                        index]
+                                                                    .habilidades![
+                                                                        0]
+                                                                    .name!),
+                                                              ],
+                                                            )
+                                                          : Text(widget
+                                                              .controller
+                                                              .pokemons![index]
+                                                              .name!),
+                                                    ],
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      widget.controller
+                                                          .FavoritarPokemon(
+                                                              index, false);
+                                                    },
+                                                    icon: const Icon(
+                                                      Icons.star_outline,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  )
                                                 ],
                                               ),
-                                              IconButton(
-                                                onPressed: () {
-                                                  widget.controller
-                                                      .FavoritarPokemon(
-                                                          index, false);
-                                                },
-                                                icon: const Icon(
-                                                  Icons.star_outline,
-                                                  color: Colors.grey,
-                                                ),
+                                              ElevatedButton(
+                                                child:
+                                                    const Text('Gotta Catch'),
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
                                               )
                                             ],
                                           ),
-                                          // Text(controller.pokemons![index]
-                                          //     .Categorias![0].nomeCategoria!),
-                                          ElevatedButton(
-                                            child:
-                                                const Text('Close BottomSheet'),
-                                            onPressed: () =>
-                                                Navigator.pop(context),
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                                        ),
+                                      );
+                                    },
                                   );
                                 },
-                              );
-                            },
-                            child: ListTile(
-                                title: Text(
-                                    widget.controller.pokemons![index].name!),
-                                subtitle: Text(widget
-                                    .controller.pokemons![index].id
-                                    .toString()),
-                                leading: !widget
-                                        .controller.pokemons![index].adicionado
-                                    ? Image.network(widget
-                                        .controller
-                                        .pokemons![index]
-                                        .spritePokemon!
-                                        .frontdefault!)
-                                    : SizedBox(
-                                        height: width * 0.45,
-                                        width: width * 0.35,
-                                        child: Image.file(widget.controller
-                                            .pokemonCriado!.FotoPokemon!),
-                                      ),
-                                trailing: Icon(
-                                  Icons.star_rate,
-                                  color: widget.controller.pokemons![index]
-                                              .favorito ==
-                                          true
-                                      ? Colors.amber
-                                      : Colors.grey,
-                                )),
-                          ));
-                        })
-                    : ListView.builder(
-                        itemCount: widget.controller.pokemonsFavoritos!.length,
-                        itemBuilder: (context, index) {
-                          return Card(
-                            child: ListTile(
-                              title: Text(widget
-                                  .controller.pokemonsFavoritos![index].name!),
-                              subtitle: Text(widget
-                                  .controller.pokemonsFavoritos![index].id
-                                  .toString()),
-                              leading:
-                                  widget.controller.pokemons![index].adicionado
-                                      ? Image.network(widget
-                                          .controller
-                                          .pokemonsFavoritos![index]
-                                          .spritePokemon!
-                                          .frontdefault!)
-                                      : SizedBox(
-                                          height: width * 0.45,
-                                          width: width * 0.35,
-                                          child: Image.file(widget.controller
-                                              .pokemonCriado!.FotoPokemon!),
+                                child: ListTile(
+                                    title: Text(widget
+                                        .controller.pokemons![index].name!),
+                                    subtitle: Text(widget
+                                        .controller.pokemons![index].id
+                                        .toString()),
+                                    leading: !widget.controller.pokemons![index]
+                                            .adicionado
+                                        ? Image.network(widget
+                                            .controller
+                                            .pokemons![index]
+                                            .spritePokemon!
+                                            .frontdefault!)
+                                        : SizedBox(
+                                            height: width * 0.45,
+                                            width: width * 0.35,
+                                            child: Image.file(widget.controller
+                                                .pokemonCriado!.FotoPokemon!),
+                                          ),
+                                    trailing: Icon(
+                                      Icons.star_rate,
+                                      color: widget.controller.pokemons![index]
+                                                  .favorito ==
+                                              true
+                                          ? Colors.amber
+                                          : Colors.grey,
+                                    )),
+                              ));
+                            }),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(bottom: 50.0),
+                        child: ListView.builder(
+                            itemCount:
+                                widget.controller.pokemonsFavoritos!.length,
+                            itemBuilder: (context, index) {
+                              return Card(
+                                  child: GestureDetector(
+                                onTap: () {
+                                  // controller.carregarInformacoesExtras(
+                                  //     controller.pokemons![index],
+                                  //     controller.pokemons![index].id!);
+                                  // controller.isLoadingModal == true
+                                  //     ?AlertDialog(
+                                  //     content: SingleChildScrollView(
+                                  //         child: Column(
+                                  //       children: const [
+                                  //         CircularProgressIndicator(),
+                                  //         Text('Loading..'),
+                                  //       ],
+                                  //     )),
+                                  //   )
+                                  // :
+                                  showModalBottomSheet<void>(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height: 300,
+                                        color: Colors.white,
+                                        child: Center(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      !widget
+                                                              .controller
+                                                              .pokemonsFavoritos![
+                                                                  index]
+                                                              .adicionado
+                                                          ? Image.network(widget
+                                                              .controller
+                                                              .pokemonsFavoritos![
+                                                                  index]
+                                                              .spritePokemon!
+                                                              .frontdefault!)
+                                                          : SizedBox(
+                                                              height:
+                                                                  width * 0.45,
+                                                              width:
+                                                                  width * 0.35,
+                                                              child: Image.file(widget
+                                                                  .controller
+                                                                  .pokemonsFavoritos![
+                                                                      index]
+                                                                  .FotoPokemon!),
+                                                            ),
+                                                      widget
+                                                              .controller
+                                                              .pokemonsFavoritos![
+                                                                  index]
+                                                              .adicionado
+                                                          ? Column(
+                                                              children: [
+                                                                Text(widget
+                                                                    .controller
+                                                                    .pokemonsFavoritos![
+                                                                        index]
+                                                                    .name!),
+                                                                Text(widget
+                                                                    .controller
+                                                                    .pokemonsFavoritos![
+                                                                        index]
+                                                                    .tipo![0]
+                                                                    .name!),
+                                                                Text(widget
+                                                                    .controller
+                                                                    .pokemonsFavoritos![
+                                                                        index]
+                                                                    .Categorias![
+                                                                        0]
+                                                                    .nomeCategoria!),
+                                                                Text(widget
+                                                                    .controller
+                                                                    .pokemonsFavoritos![
+                                                                        index]
+                                                                    .habilidades![
+                                                                        0]
+                                                                    .name!),
+                                                              ],
+                                                            )
+                                                          : Text(widget
+                                                              .controller
+                                                              .pokemonsFavoritos![
+                                                                  index]
+                                                              .name!),
+                                                    ],
+                                                  ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      widget.controller
+                                                          .FavoritarPokemon(
+                                                              index, false);
+                                                    },
+                                                    icon: const Icon(
+                                                      Icons.star_outline,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              ElevatedButton(
+                                                child:
+                                                    const Text('Gotta Catch'),
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                              )
+                                            ],
+                                          ),
                                         ),
-                              trailing: Icon(
-                                Icons.star_rate,
-                                color: widget
+                                      );
+                                    },
+                                  );
+                                },
+                                child: ListTile(
+                                    title: Text(widget.controller
+                                        .pokemonsFavoritos![index].name!),
+                                    subtitle: Text(widget
+                                        .controller.pokemonsFavoritos![index].id
+                                        .toString()),
+                                    leading: !widget
                                             .controller
                                             .pokemonsFavoritos![index]
-                                            .favorito ==
-                                        true
-                                    ? Colors.amber
-                                    : Colors.grey,
-                              ),
-                            ),
-                          );
-                        }),
+                                            .adicionado
+                                        ? Image.network(widget
+                                            .controller
+                                            .pokemonsFavoritos![index]
+                                            .spritePokemon!
+                                            .frontdefault!)
+                                        : SizedBox(
+                                            height: width * 0.45,
+                                            width: width * 0.35,
+                                            child: Image.file(widget
+                                                .controller
+                                                .pokemonsFavoritos![index]
+                                                .FotoPokemon!),
+                                          ),
+                                    trailing: Icon(
+                                      Icons.star_rate,
+                                      color: widget
+                                                  .controller
+                                                  .pokemonsFavoritos![index]
+                                                  .favorito ==
+                                              true
+                                          ? Colors.amber
+                                          : Colors.grey,
+                                    )),
+                              ));
+                            }),
+                      ),
             bottomSheet: Container(
               height: 60,
               color: Colors.red,
