@@ -16,6 +16,8 @@ class PokelistaPage extends StatefulWidget {
 class _PokelistaPageState extends State<PokelistaPage> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Obx(
       () => SafeArea(
         child: Material(
@@ -82,11 +84,23 @@ class _PokelistaPageState extends State<PokelistaPage> {
                                         children: <Widget>[
                                           Row(
                                             children: [
-                                              Image.network(widget
-                                                  .controller
-                                                  .pokemons![index]
-                                                  .spritePokemon!
-                                                  .frontdefault!),
+                                              !widget
+                                                      .controller
+                                                      .pokemons![index]
+                                                      .adicionado
+                                                  ? Image.network(widget
+                                                      .controller
+                                                      .pokemons![index]
+                                                      .spritePokemon!
+                                                      .frontdefault!)
+                                                  : SizedBox(
+                                                      height: width * 0.45,
+                                                      width: width * 0.35,
+                                                      child: Image.file(widget
+                                                          .controller
+                                                          .pokemonCriado!
+                                                          .FotoPokemon!),
+                                                    ),
                                               Column(
                                                 children: [
                                                   Text(widget.controller
@@ -127,11 +141,19 @@ class _PokelistaPageState extends State<PokelistaPage> {
                                 subtitle: Text(widget
                                     .controller.pokemons![index].id
                                     .toString()),
-                                leading: Image.network(widget
-                                    .controller
-                                    .pokemons![index]
-                                    .spritePokemon!
-                                    .frontdefault!),
+                                leading: !widget
+                                        .controller.pokemons![index].adicionado
+                                    ? Image.network(widget
+                                        .controller
+                                        .pokemons![index]
+                                        .spritePokemon!
+                                        .frontdefault!)
+                                    : SizedBox(
+                                        height: width * 0.45,
+                                        width: width * 0.35,
+                                        child: Image.file(widget.controller
+                                            .pokemonCriado!.FotoPokemon!),
+                                      ),
                                 trailing: Icon(
                                   Icons.star_rate,
                                   color: widget.controller.pokemons![index]
@@ -152,11 +174,19 @@ class _PokelistaPageState extends State<PokelistaPage> {
                               subtitle: Text(widget
                                   .controller.pokemonsFavoritos![index].id
                                   .toString()),
-                              leading: Image.network(widget
-                                  .controller
-                                  .pokemonsFavoritos![index]
-                                  .spritePokemon!
-                                  .frontdefault!),
+                              leading:
+                                  widget.controller.pokemons![index].adicionado
+                                      ? Image.network(widget
+                                          .controller
+                                          .pokemonsFavoritos![index]
+                                          .spritePokemon!
+                                          .frontdefault!)
+                                      : SizedBox(
+                                          height: width * 0.45,
+                                          width: width * 0.35,
+                                          child: Image.file(widget.controller
+                                              .pokemonCriado!.FotoPokemon!),
+                                        ),
                               trailing: Icon(
                                 Icons.star_rate,
                                 color: widget

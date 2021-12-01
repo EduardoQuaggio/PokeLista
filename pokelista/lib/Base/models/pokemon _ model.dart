@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:pokelista/Base/models/categoria_modal.dart';
 import 'package:pokelista/Base/models/descricao_model.dart';
@@ -12,7 +13,7 @@ class PokemonModel {
   String? name;
   String? url;
   bool favorito = false;
-
+  bool adicionado = false;
   SpritePokemon? spritePokemon;
 
   List<Habilidades>? habilidades;
@@ -20,6 +21,7 @@ class PokemonModel {
   List<Descricao>? Descricoes;
   List<Categoria>? Categorias;
 
+  File? FotoPokemon;
   PokemonModel({
     this.id,
     this.name,

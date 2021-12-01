@@ -1,7 +1,12 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:pokelista/Base/api/pokemon_api.dart';
 import 'package:pokelista/Base/models/categoria_modal.dart';
+import 'package:pokelista/Base/models/descricao_model.dart';
 import 'package:pokelista/Base/models/habilidades_model.dart';
 import 'package:pokelista/Base/models/pokemon%20_%20model.dart';
 import 'package:pokelista/Base/models/tipo_model.dart';
@@ -23,6 +28,10 @@ class PokelistaController extends GetxController {
   // PokelistaController() {
   //   carregarListaPokemon();
   // }
+  PokemonModel? pokemonCriado;
+  var arquivoCarregado = false.obs;
+  TextEditingController inputDescricao = TextEditingController();
+  TextEditingController inputNomePokemon = TextEditingController();
 
   Future<void> onInit() async {
     super.onInit();
@@ -99,6 +108,10 @@ class PokelistaController extends GetxController {
   Future<void> carregarListaCadastro() async {
     try {
       try {
+        pokemonCriado = PokemonModel();
+        tipoPokemonSelecionado = TipoPokemon().obs;
+        categoriaPokemonSelecionado = Categoria().obs;
+        habilidadePokemonSelecionado = Habilidades().obs;
         isLoading.value = true;
         tiposPokemon = await PokemonApi().getTiposPokemons();
         categoriasPokemon = await PokemonApi().getCategoriaPokemons();
@@ -125,5 +138,50 @@ class PokelistaController extends GetxController {
     } catch (e) {
       print(e);
     } catch (e) {}
+  }
+
+  Future escolheFotoGaleria() async {
+    try {
+      FilePickerResult? image = await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowedExtensions: ['jpg', 'jpeg', 'png', 'pdf', 'zip'],
+          allowMultiple: false);
+      if (image == null) throw new Exception();
+      File file = File(image.files.single.path!);
+      arquivoCarregado.value = true;
+      pokemonCriado!.FotoPokemon = file;
+    } catch (e) {}
+  }
+
+  String? ValidarCamposFaltando() {
+    if (!arquivoCarregado.value) return 'Faltando foto do pokemon';
+    if (inputDescricao.text == '') return 'Faltando descrição do pokemon';
+    if (habilidadePokemonSelecionado!.value == null)
+      return 'Faltando habilidade do pokemon';
+    if (categoriaPokemonSelecionado!.value == null)
+      return 'Faltando categoria do pokemon';
+    if (tipoPokemonSelecionado!.value == null)
+      return 'Faltando tipo faltando do pokemon';
+    if (inputNomePokemon.text == '') return 'Faltando nome do pokemon';
+
+    return null;
+  }
+
+  void SalvarPokemon() {
+    pokemonCriado!.Categorias = [];
+    pokemonCriado!.habilidades = [];
+    pokemonCriado!.tipo = [];
+    pokemonCriado!.Descricoes = [];
+
+    pokemonCriado!.Categorias!.add(categoriaPokemonSelecionado!.value);
+    pokemonCriado!.habilidades!.add(habilidadePokemonSelecionado!.value);
+    pokemonCriado!.tipo!.add(tipoPokemonSelecionado!.value);
+    pokemonCriado!.name = inputNomePokemon.value.text;
+    Descricao? descricao = Descricao();
+    descricao!.descricao = inputNomePokemon.value.text;
+    pokemonCriado!.Descricoes!.add(descricao);
+    pokemonCriado!.adicionado = true;
+    pokemons!.add(pokemonCriado!);
+    auxListaPokemon!.add(pokemonCriado!);
   }
 }

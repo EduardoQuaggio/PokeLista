@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -28,6 +29,7 @@ class _CadastroPokemonsPageState extends State<CadastroPokemonsPage> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Obx(
       () => SafeArea(
         child: Material(
@@ -54,98 +56,177 @@ class _CadastroPokemonsPageState extends State<CadastroPokemonsPage> {
                       : Column(
                           children: [
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                SizedBox(
-                                  width: width / 2.2,
-                                  child: DropdownButton<String>(
-                                    hint: const Text('Categoria'),
-                                    value: widget
-                                        .controller
-                                        .categoriaPokemonSelecionado!
-                                        .value
-                                        .nomeCategoria,
-                                    icon: const Icon(
-                                      Icons.arrow_downward,
-                                    ),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    style: const TextStyle(color: Colors.red),
-                                    underline: Container(
-                                      height: 2,
-                                      color: Colors.redAccent,
-                                    ),
-                                    onChanged: (String? newValue) {
-                                      widget.controller
-                                          .selecionarPicker(newValue, 0);
+                                GestureDetector(
+                                    onTap: () {
+                                      widget.controller.escolheFotoGaleria();
                                     },
-                                    items: widget.controller.categoriasPokemon!
-                                        .map((Categoria categoria) {
-                                      return DropdownMenuItem<String>(
-                                        value: categoria.nomeCategoria,
-                                        child: Text(categoria.nomeCategoria!),
-                                      );
-                                    }).toList(),
-                                  ),
-                                ),
+                                    child: widget.controller.arquivoCarregado ==
+                                            false
+                                        ? const Icon(
+                                            Icons.person,
+                                            color: Colors.grey,
+                                            size: 150,
+                                          )
+                                        : Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: SizedBox(
+                                              height: width * 0.45,
+                                              width: width * 0.35,
+                                              child: Image.file(widget
+                                                  .controller
+                                                  .pokemonCriado!
+                                                  .FotoPokemon!),
+                                            ),
+                                          )),
                                 SizedBox(
-                                  width: width / 2.2,
-                                  child: DropdownButton<String>(
-                                    hint: const Text('Tipo'),
-                                    value: widget.controller
-                                        .tipoPokemonSelecionado!.value.name,
-                                    icon: const Icon(Icons.arrow_downward),
-                                    iconSize: 24,
-                                    elevation: 16,
-                                    style: const TextStyle(color: Colors.red),
-                                    underline: Container(
-                                      height: 2,
-                                      color: Colors.redAccent,
+                                  width: width * 0.5,
+                                  child: TextFormField(
+                                    controller:
+                                        widget.controller.inputNomePokemon,
+                                    cursorColor: Colors.red,
+                                    decoration: const InputDecoration(
+                                      border: UnderlineInputBorder(),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.grey)),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.red)),
+                                      labelText: 'Nome do Pokemon',
                                     ),
-                                    onChanged: (String? newValue) {
-                                      widget.controller
-                                          .selecionarPicker(newValue, 1);
-                                    },
-                                    items: widget.controller.tiposPokemon!
-                                        .map((TipoPokemon tipoPokemon) {
-                                      return DropdownMenuItem<String>(
-                                        value: tipoPokemon.name,
-                                        child: Text(tipoPokemon.name!),
-                                      );
-                                    }).toList(),
                                   ),
                                 ),
                               ],
-                            ),
-                            SizedBox(
-                              width: width * 0.95,
-                              child: DropdownButton<String>(
-                                hint: const Text('Habilidade'),
-                                value: widget.controller
-                                    .habilidadePokemonSelecionado!.value.name,
-                                icon: const Icon(Icons.arrow_downward),
-                                iconSize: 24,
-                                elevation: 16,
-                                style: const TextStyle(color: Colors.red),
-                                underline: Container(
-                                  height: 2,
-                                  color: Colors.redAccent,
-                                ),
-                                onChanged: (String? newValue) {
-                                  widget.controller
-                                      .selecionarPicker(newValue, 2);
-                                },
-                                items: widget.controller.habilidadesPokemon!
-                                    .map((Habilidades habilidades) {
-                                  return DropdownMenuItem<String>(
-                                    value: habilidades.name,
-                                    child: Text(habilidades.name!),
-                                  );
-                                }).toList(),
-                              ),
-                            ),
+                            )
                           ],
                         ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: width / 2.2,
+                        child: DropdownButton<String>(
+                          hint: const Text('Categoria'),
+                          value: widget.controller.categoriaPokemonSelecionado!
+                              .value.nomeCategoria,
+                          icon: const Icon(
+                            Icons.arrow_downward,
+                          ),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.red),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.redAccent,
+                          ),
+                          onChanged: (String? newValue) {
+                            widget.controller.selecionarPicker(newValue, 0);
+                          },
+                          items: widget.controller.categoriasPokemon!
+                              .map((Categoria categoria) {
+                            return DropdownMenuItem<String>(
+                              value: categoria.nomeCategoria,
+                              child: Text(categoria.nomeCategoria!),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                      SizedBox(
+                        width: width / 2.2,
+                        child: DropdownButton<String>(
+                          hint: const Text('Tipo'),
+                          value: widget
+                              .controller.tipoPokemonSelecionado!.value.name,
+                          icon: const Icon(Icons.arrow_downward),
+                          iconSize: 24,
+                          elevation: 16,
+                          style: const TextStyle(color: Colors.red),
+                          underline: Container(
+                            height: 2,
+                            color: Colors.redAccent,
+                          ),
+                          onChanged: (String? newValue) {
+                            widget.controller.selecionarPicker(newValue, 1);
+                          },
+                          items: widget.controller.tiposPokemon!
+                              .map((TipoPokemon tipoPokemon) {
+                            return DropdownMenuItem<String>(
+                              value: tipoPokemon.name,
+                              child: Text(tipoPokemon.name!),
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    width: width * 0.95,
+                    child: DropdownButton<String>(
+                      hint: const Text('Habilidade'),
+                      value: widget
+                          .controller.habilidadePokemonSelecionado!.value.name,
+                      icon: const Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.red),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.redAccent,
+                      ),
+                      onChanged: (String? newValue) {
+                        widget.controller.selecionarPicker(newValue, 2);
+                      },
+                      items: widget.controller.habilidadesPokemon!
+                          .map((Habilidades habilidades) {
+                        return DropdownMenuItem<String>(
+                          value: habilidades.name,
+                          child: Text(habilidades.name!),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: TextFormField(
+                      controller: widget.controller.inputDescricao,
+                      cursorColor: Colors.red,
+                      maxLines: 10,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red)),
+                        labelText: 'Descrição',
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      var result = widget.controller.ValidarCamposFaltando();
+
+                      if (result == null) {
+                        widget.controller.SalvarPokemon();
+                        Get.back();
+                      } else {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Atenção'),
+                            content: Text('${result}'),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    },
+                    child: const Text('Salvar'),
+                  )
                 ],
               ),
             ),
